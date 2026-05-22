@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon SDE Intern Prep Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f4;
+    --surface: #ffffff;
+    --surface-2: #f2eee5;
+    --ink: #1a2438;
+    --ink-soft: #45526b;
+    --ink-muted: #6e7a90;
+    --line: #e3dccc;
+    --line-strong: #c8bea8;
+    --accent: #d97706;
+    --accent-soft: #fef3c7;
+    --accent-strong: #92400e;
+    --success: #15803d;
+    --success-soft: #dcfce7;
+    --danger: #b91c1c;
+    --danger-soft: #fee2e2;
+    --info: #1d4ed8;
+    --info-soft: #dbeafe;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --shadow-soft: 0 1px 2px rgba(26, 36, 56, 0.04), 0 4px 12px rgba(26, 36, 56, 0.04);
+    --shadow-card: 0 1px 3px rgba(26, 36, 56, 0.06), 0 8px 24px rgba(26, 36, 56, 0.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--info); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-color: var(--info); }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; }
+
+  .shell { max-width: 1080px; margin: 0 auto; padding: 32px 28px 80px; }
+
+  header.hero {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+  }
+  .hero-title { font-family: var(--serif); font-weight: 600; font-size: clamp(32px, 5vw, 52px); letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); }
+  .hero-title .em { color: var(--accent); font-style: italic; font-weight: 500; }
+  .hero-sub { font-size: 15px; color: var(--ink-muted); margin-top: 10px; max-width: 56ch; }
+  .hero-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; font-family: var(--mono); font-size: 12px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .countdown-wrap { background: var(--ink); color: #fff; padding: 14px 18px; border-radius: 8px; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; min-width: 200px; }
+  .countdown-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+  .countdown-value { font-family: var(--serif); font-size: 28px; font-weight: 600; }
+  .countdown-wrap input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-family: var(--mono); }
+  .countdown-wrap input::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; }
+
+  nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 32px; }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
+  .tab-btn .num { color: var(--accent); font-weight: 500; margin-right: 6px; }
+
+  section.panel { display: none; }
+  section.panel.active { display: block; animation: fade 0.3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  h2.section-title { font-family: var(--serif); font-size: 32px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--ink); }
+  .section-lead { font-size: 15px; color: var(--ink-soft); margin-bottom: 28px; max-width: 68ch; }
+  h3.sub { font-family: var(--serif); font-size: 22px; font-weight: 600; margin: 32px 0 12px; color: var(--ink); }
+  h4.minor { font-family: var(--sans); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin: 24px 0 12px; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; box-shadow: var(--shadow-soft); }
+  .card.feature { box-shadow: var(--shadow-card); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 760px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    header.hero { grid-template-columns: 1fr; }
+    .hero-meta { align-items: flex-start; }
+  }
+
+  .stat-card { padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  .stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+  .stat-value { font-family: var(--serif); font-size: 28px; font-weight: 600; margin-top: 4px; color: var(--ink); }
+  .stat-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+  .progress-track { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; margin-top: 10px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 99px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid; }
+  .pill.easy { color: var(--success); background: var(--success-soft); border-color: transparent; }
+  .pill.medium { color: var(--accent-strong); background: var(--accent-soft); border-color: transparent; }
+  .pill.hard { color: var(--danger); background: var(--danger-soft); border-color: transparent; }
+  .pill.amazon { color: var(--info); background: var(--info-soft); border-color: transparent; font-weight: 600; }
+  .pill.outline { color: var(--ink-soft); background: transparent; border-color: var(--line-strong); }
+
+  /* Schedule */
+  .day-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .day-row:last-child { border-bottom: none; }
+  .day-num { font-family: var(--serif); font-size: 32px; font-weight: 600; color: var(--ink); line-height: 1; }
+  .day-num .small { display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-top: 4px; font-weight: 400; }
+  .day-content h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+  .day-content p { font-size: 14px; color: var(--ink-soft); margin-bottom: 8px; }
+  .day-content ul { margin-left: 18px; font-size: 14px; color: var(--ink-soft); }
+  .day-content li { margin-bottom: 3px; }
+  .day-check { width: 28px; height: 28px; border-radius: 6px; border: 1.5px solid var(--line-strong); background: transparent; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; color: transparent; }
+  .day-check:hover { border-color: var(--accent); }
+  .day-check.done { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .day-check.done::after { content: '✓'; font-size: 16px; font-weight: 700; color: #fff; }
+
+  /* LeetCode list */
+  .lc-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  .lc-controls input[type="search"] { flex: 1; min-width: 180px; padding: 7px 11px; border: 1px solid var(--line-strong); border-radius: 6px; font-size: 13px; background: var(--bg); }
+  .filter-chip { padding: 5px 11px; border: 1px solid var(--line-strong); background: transparent; border-radius: 99px; font-size: 12px; color: var(--ink-soft); transition: all 0.15s; }
+  .filter-chip:hover { border-color: var(--ink-soft); }
+  .filter-chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  .pattern-group { margin-bottom: 28px; }
+  .pattern-head { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+  .pattern-head h3 { font-family: var(--serif); font-size: 19px; font-weight: 600; }
+  .pattern-head .count { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.05em; }
+  .lc-row { display: grid; grid-template-columns: 28px 1fr auto auto; gap: 12px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--line); transition: background 0.15s; }
+  .lc-row:hover { background: var(--surface-2); }
+  .lc-row.done .lc-title { text-decoration: line-through; color: var(--ink-muted); }
+  .lc-check { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--line-strong); background: transparent; cursor: pointer; transition: all 0.15s; }
+  .lc-check:hover { border-color: var(--accent); }
+  .lc-check.checked { background: var(--accent); border-color: var(--accent); position: relative; }
+  .lc-check.checked::after { content: '✓'; position: absolute; top: -2px; left: 2px; color: #fff; font-size: 13px; font-weight: 700; }
+  .lc-title { font-size: 14px; color: var(--ink); }
+  .lc-title a { color: inherit; border: none; }
+  .lc-title a:hover { color: var(--info); }
+  .lc-meta { display: flex; gap: 6px; align-items: center; }
+
+  /* LPs */
+  .lp-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; margin-bottom: 14px; }
+  .lp-head { display: flex; align-items: flex-start; gap: 16px; cursor: pointer; }
+  .lp-num { font-family: var(--serif); font-size: 36px; font-weight: 500; color: var(--accent); line-height: 1; min-width: 56px; }
+  .lp-title-wrap { flex: 1; }
+  .lp-title { font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--ink); }
+  .lp-tagline { font-size: 13px; color: var(--ink-muted); margin-top: 2px; font-style: italic; }
+  .lp-chevron { font-family: var(--mono); font-size: 18px; color: var(--ink-muted); transition: transform 0.2s; }
+  .lp-card.open .lp-chevron { transform: rotate(90deg); }
+  .lp-body { display: none; padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--line); }
+  .lp-card.open .lp-body { display: block; }
+  .lp-quote { font-family: var(--serif); font-size: 14px; color: var(--ink-soft); font-style: italic; line-height: 1.7; margin-bottom: 16px; padding-left: 14px; border-left: 2px solid var(--accent); }
+  .lp-body h5 { font-family: var(--sans); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin: 16px 0 8px; }
+  .lp-body ul { margin-left: 18px; font-size: 14px; color: var(--ink-soft); }
+  .lp-body li { margin-bottom: 6px; }
+  .lp-priority { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 99px; letter-spacing: 0.05em; text-transform: uppercase; margin-left: 8px; }
+  .lp-priority.top { background: var(--danger-soft); color: var(--danger); }
+  .lp-priority.high { background: var(--accent-soft); color: var(--accent-strong); }
+
+  /* STAR */
+  .star-form { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; margin-bottom: 18px; }
+  .star-form label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; margin-top: 14px; }
+  .star-form label:first-of-type { margin-top: 0; }
+  .star-form input[type="text"], .star-form textarea, .star-form select {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 6px; font-size: 14px; background: var(--bg); color: var(--ink); font-family: var(--sans); resize: vertical;
+  }
+  .star-form textarea { min-height: 70px; }
+  .star-actions { display: flex; gap: 10px; margin-top: 16px; }
+  .btn { padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; border: 1px solid; transition: all 0.15s; }
+  .btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-primary:hover { background: #000; }
+  .btn-secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn-secondary:hover { border-color: var(--ink); }
+  .btn-danger { background: transparent; color: var(--danger); border-color: transparent; }
+  .btn-danger:hover { background: var(--danger-soft); }
+
+  .story-saved { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; }
+  .story-saved-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .story-saved-title { font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--ink); }
+  .story-saved-tags { display: flex; gap: 4px; flex-wrap: wrap; margin: 8px 0; }
+  .story-saved-tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; background: var(--surface-2); color: var(--ink-soft); border-radius: 99px; }
+  .story-saved-body { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+  .story-saved-body p { margin-bottom: 6px; }
+  .story-saved-body strong { color: var(--ink); font-weight: 600; }
+
+  .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; margin-top: 8px; }
+  .checkbox-grid label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-family: var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink-soft); cursor: pointer; padding: 4px 0; margin: 0; }
+  .checkbox-grid input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--accent); }
+
+  /* Resources */
+  .resource-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; transition: border-color 0.15s; }
+  .resource-card:hover { border-color: var(--line-strong); }
+  .resource-card h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .resource-card p { font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; }
+
+  /* Day-of */
+  .checklist-block { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; margin-bottom: 14px; }
+  .checklist-block h3 { font-family: var(--serif); font-size: 20px; margin-bottom: 14px; }
+  .checklist-block ul { list-style: none; margin: 0; }
+  .checklist-block li { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); display: flex; align-items: flex-start; gap: 10px; }
+  .checklist-block li:last-child { border-bottom: none; }
+  .checklist-block li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 9px; }
+  .checklist-block.warn li::before { background: var(--danger); }
+
+  .callout { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; color: var(--accent-strong); }
+  .callout strong { color: var(--accent-strong); }
+
+  footer.foot { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.05em; text-align: center; }
+  footer.foot button { background: none; border: none; color: var(--danger); font-family: var(--mono); font-size: 11px; padding: 0; margin-left: 12px; }
+  footer.foot button:hover { text-decoration: underline; }
+
+  @media print {
+    nav.tabs, .lc-controls, .star-actions, .day-check { display: none; }
+    section.panel { display: block !important; page-break-after: always; }
+    .lp-body { display: block !important; }
+  }
+
+  /* Coverage matrix */
+  .cov-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 11px; }
+  .cov-table th, .cov-table td { padding: 6px 4px; text-align: center; border-bottom: 1px solid var(--line); }
+  .cov-table th { font-weight: 500; font-size: 10px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; vertical-align: bottom; }
+  .cov-table th.gap { color: var(--danger); }
+  .cov-table th.story-name { text-align: left; padding-left: 8px; font-family: var(--serif); font-size: 13px; text-transform: none; letter-spacing: 0; color: var(--ink); font-weight: 600; min-width: 140px; }
+  .cov-table td.dot { color: var(--accent); font-size: 16px; font-weight: 700; }
+  .cov-table td.empty { color: var(--line-strong); font-size: 11px; }
+  .cov-table tr:hover { background: var(--surface-2); }
+  .cov-table .lp-label { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; height: 90px; padding: 4px 0; }
+  .cov-table .count-row td { font-weight: 600; color: var(--ink-soft); background: var(--surface-2); border-top: 1px solid var(--line-strong); }
+  .cov-table .count-row td.zero { color: var(--danger); }
+
+  /* Tightening checklist */
+  .tighten { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+  .tighten-item { font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 99px; }
+  .tighten-item.ok { background: var(--success-soft); color: var(--success); }
+  .tighten-item.miss { background: var(--danger-soft); color: var(--danger); }
+  .tighten-item::before { margin-right: 4px; font-weight: 700; }
+  .tighten-item.ok::before { content: '✓'; }
+  .tighten-item.miss::before { content: '×'; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="hero">
+    <div>
+      <h1 class="hero-title">Amazon SDE Intern <span class="em">Prep Hub</span></h1>
+      <p class="hero-sub">Two weeks. Everything you need: a daily schedule, the LeetCode questions that actually get asked, all sixteen Leadership Principles with sample probes, a STAR story builder, and a day of checklist. Your progress saves automatically.</p>
+    </div>
+    <div class="hero-meta">
+      <div class="countdown-wrap">
+        <span class="countdown-label">Interview Countdown</span>
+        <span class="countdown-value" id="countdown">Set date</span>
+        <input type="date" id="interview-date">
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="overview"><span class="num">01</span>Overview</button>
+    <button class="tab-btn" data-tab="schedule"><span class="num">02</span>14 Day Plan</button>
+    <button class="tab-btn" data-tab="leetcode"><span class="num">03</span>LeetCode</button>
+    <button class="tab-btn" data-tab="lps"><span class="num">04</span>Leadership Principles</button>
+    <button class="tab-btn" data-tab="drill"><span class="num">05</span>LP Drill</button>
+    <button class="tab-btn" data-tab="star"><span class="num">06</span>STAR Stories</button>
+    <button class="tab-btn" data-tab="genai"><span class="num">07</span>GenAI</button>
+    <button class="tab-btn" data-tab="resources"><span class="num">08</span>Resources</button>
+    <button class="tab-btn" data-tab="dayof"><span class="num">09</span>Day Of</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="panel active" id="overview">
+    <h2 class="section-title">The interview, demystified</h2>
+    <p class="section-lead">Amazon SDE intern interviews are unusually predictable once you know the format. Here is how the loop actually breaks down for an intern virtual onsite, and where your time has the highest leverage.</p>
+
+    <div class="grid-4" style="margin-bottom: 28px;">
+      <div class="stat-card">
+        <div class="stat-label">Rounds</div>
+        <div class="stat-value" id="stat-rounds">0 / 4</div>
+        <div class="stat-sub">Schedule days completed</div>
+        <div class="progress-track"><div class="progress-fill" id="bar-rounds" style="width: 0%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">LeetCode</div>
+        <div class="stat-value" id="stat-lc">0 / 0</div>
+        <div class="stat-sub">Problems checked off</div>
+        <div class="progress-track"><div class="progress-fill" id="bar-lc" style="width: 0%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Stories</div>
+        <div class="stat-value" id="stat-stories">0</div>
+        <div class="stat-sub">STAR stories saved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">LPs covered</div>
+        <div class="stat-value" id="stat-lp-cov">0 / 16</div>
+        <div class="stat-sub">Principles with a story</div>
+        <div class="progress-track"><div class="progress-fill" id="bar-lp" style="width: 0%"></div></div>
+      </div>
+    </div>
+
+    <h3 class="sub">What the SDE intern loop looks like</h3>
+    <div class="card" style="margin-bottom: 16px;">
+      <p style="font-size: 15px; color: var(--ink-soft); margin-bottom: 14px;">For US SDE intern roles, the virtual onsite is typically <strong style="color: var(--ink);">one or two back to back 45 to 60 minute rounds</strong>, each blending behavioral and technical. A few candidates report three rounds. Recent recruiters have also added a short generative AI question at the end.</p>
+      <ul style="margin-left: 20px; color: var(--ink-soft); font-size: 14px;">
+        <li style="margin-bottom: 6px;">Roughly 10 to 15 minutes of behavioral up front (one to two LP questions, with deep follow ups).</li>
+        <li style="margin-bottom: 6px;">25 to 30 minutes of coding on one Medium problem, sometimes two Easy ones.</li>
+        <li style="margin-bottom: 6px;">A few minutes for your questions back to the interviewer.</li>
+        <li style="margin-bottom: 6px;">If it is a second round, a different interviewer covers different LPs and a different problem type.</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">Where to focus your 14 days</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="stat-label" style="color: var(--accent);">40%</div>
+        <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin: 6px 0 8px;">Behavioral and STAR</h4>
+        <p style="font-size: 13px; color: var(--ink-soft);">Most candidates underprepare here. LP signal often outweighs code at the intern level. Build five strong stories that cover all 16 LPs.</p>
+      </div>
+      <div class="card">
+        <div class="stat-label" style="color: var(--accent);">45%</div>
+        <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin: 6px 0 8px;">LeetCode patterns</h4>
+        <p style="font-size: 13px; color: var(--ink-soft);">Target Medium difficulty, focused on the 10 patterns Amazon loves. Pattern recognition beats brute volume every time.</p>
+      </div>
+      <div class="card">
+        <div class="stat-label" style="color: var(--accent);">15%</div>
+        <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin: 6px 0 8px;">Communication</h4>
+        <p style="font-size: 13px; color: var(--ink-soft);">Thinking aloud, clarifying inputs, walking the interviewer through tradeoffs. Practice mock rounds out loud, not silently.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">The mental model that wins</h3>
+    <div class="card feature">
+      <p style="margin-bottom: 12px; font-size: 14px; color: var(--ink-soft);">Every Amazon answer, technical or behavioral, follows a similar arc. Internalize this and your responses will sound structured without sounding rehearsed.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 16px;">
+        <div style="padding: 12px; background: var(--surface-2); border-radius: 6px;">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em;">Step 1</div>
+          <div style="font-weight: 600; font-size: 14px; margin: 4px 0;">Clarify</div>
+          <div style="font-size: 12px; color: var(--ink-soft);">Restate the problem, ask about constraints, confirm assumptions.</div>
+        </div>
+        <div style="padding: 12px; background: var(--surface-2); border-radius: 6px;">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em;">Step 2</div>
+          <div style="font-weight: 600; font-size: 14px; margin: 4px 0;">Brute force</div>
+          <div style="font-size: 12px; color: var(--ink-soft);">State the obvious solution with complexity. Never skip this.</div>
+        </div>
+        <div style="padding: 12px; background: var(--surface-2); border-radius: 6px;">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em;">Step 3</div>
+          <div style="font-weight: 600; font-size: 14px; margin: 4px 0;">Optimize</div>
+          <div style="font-size: 12px; color: var(--ink-soft);">Name the pattern. Walk the new approach before coding.</div>
+        </div>
+        <div style="padding: 12px; background: var(--surface-2); border-radius: 6px;">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em;">Step 4</div>
+          <div style="font-weight: 600; font-size: 14px; margin: 4px 0;">Code clean</div>
+          <div style="font-size: 12px; color: var(--ink-soft);">Readable names, no nested mess. Talk while you type.</div>
+        </div>
+        <div style="padding: 12px; background: var(--surface-2); border-radius: 6px;">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em;">Step 5</div>
+          <div style="font-weight: 600; font-size: 14px; margin: 4px 0;">Test</div>
+          <div style="font-size: 12px; color: var(--ink-soft);">Walk through a normal case, an edge case, an empty input.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout"><strong>Reality check.</strong> The single most common failure mode is rushing to code before clarifying. Slow down on Step 1. Interviewers note candidates who probe inputs and constraints before touching the editor.</div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="panel" id="schedule">
+    <h2 class="section-title">Your 14 day battle plan</h2>
+    <p class="section-lead">Built for a focused fortnight. Days 1 through 10 build technical and behavioral muscle in parallel. Days 11 through 13 are mock and stress test. Day 14 is light review and rest. Check off each day as you finish it.</p>
+
+    <div id="schedule-list"></div>
+
+    <div class="callout" style="margin-top: 28px;"><strong>Treat the daily hours as a target, not a ceiling.</strong> Some days will be heavier (mock rounds, story writing). If you fall behind, prioritize STAR stories and Medium LeetCode practice over volume.</div>
+  </section>
+
+  <!-- LEETCODE -->
+  <section class="panel" id="leetcode">
+    <h2 class="section-title">The LeetCode list that actually matters</h2>
+    <p class="section-lead">These 90 problems pulled from Amazon tagged frequency lists and intern interview reports from 2024 through 2026 cover the patterns Amazon repeats. The blue badge marks classic Amazon staples that have shown up across years.</p>
+
+    <div class="lc-controls">
+      <input type="search" id="lc-search" placeholder="Search problems...">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="easy">Easy</button>
+      <button class="filter-chip" data-filter="medium">Medium</button>
+      <button class="filter-chip" data-filter="hard">Hard</button>
+      <button class="filter-chip" data-filter="amazon">Amazon staples</button>
+      <button class="filter-chip" data-filter="undone">Not done</button>
+    </div>
+
+    <div id="lc-list"></div>
+  </section>
+
+  <!-- LEADERSHIP PRINCIPLES -->
+  <section class="panel" id="lps">
+    <h2 class="section-title">The 16 Leadership Principles</h2>
+    <p class="section-lead">Tap any principle to expand its real definition, the LP questions interns get asked, and what interviewers are listening for. Priority badges flag the ones that come up most in intern loops.</p>
+
+    <div id="lp-list"></div>
+
+    <div class="callout" style="margin-top: 24px;"><strong>You do not need 16 stories.</strong> A well chosen story can demonstrate three or four LPs at once. Aim for five strong stories that collectively touch every principle. Build them on the STAR Stories tab.</div>
+  </section>
+
+  <!-- LP DRILL -->
+  <section class="panel" id="drill">
+    <h2 class="section-title">LP drill mode</h2>
+    <p class="section-lead">Random LP questions on a 2 minute timer. Answer out loud. The point is not to script answers but to build the muscle of structuring a STAR response under surprise pressure. Real interviews probe in unpredictable directions, so practice the unpredictable.</p>
+
+    <div class="grid-3" style="margin-bottom: 24px;">
+      <div class="stat-card">
+        <div class="stat-label">Drilled today</div>
+        <div class="stat-value" id="drill-today">0</div>
+        <div class="stat-sub">Questions practiced this session</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Drilled total</div>
+        <div class="stat-value" id="drill-total">0</div>
+        <div class="stat-sub">Across all sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Target</div>
+        <div class="stat-value">50</div>
+        <div class="stat-sub">Recommended by interview day</div>
+      </div>
+    </div>
+
+    <div class="card feature" id="drill-stage" style="text-align: center; padding: 40px 28px; margin-bottom: 16px;">
+      <div id="drill-empty">
+        <p style="font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 8px;">Ready to drill?</p>
+        <p style="font-size: 14px; color: var(--ink-soft); margin-bottom: 24px;">Click start. A random question appears with a 2 minute timer. Answer out loud, then hit next.</p>
+        <button class="btn btn-primary" id="drill-start" style="font-size: 14px; padding: 10px 24px;">Start drill</button>
+      </div>
+      <div id="drill-active" style="display: none;">
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;" id="drill-lp-label">Customer Obsession</div>
+        <p style="font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 28px; max-width: 50ch; margin-left: auto; margin-right: auto;" id="drill-question"></p>
+        <div style="font-family: var(--mono); font-size: 48px; font-weight: 500; color: var(--accent); margin-bottom: 8px; font-variant-numeric: tabular-nums;" id="drill-timer">2:00</div>
+        <div style="height: 4px; background: var(--surface-2); border-radius: 99px; overflow: hidden; max-width: 320px; margin: 0 auto 24px;">
+          <div style="height: 100%; background: var(--accent); transition: width 1s linear; width: 100%;" id="drill-bar"></div>
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button class="btn btn-secondary" id="drill-skip">Skip</button>
+          <button class="btn btn-primary" id="drill-next">Next question</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout"><strong>Drill discipline.</strong> Speak the full STAR answer out loud, even if it feels silly. Silent rehearsal does almost nothing. The first time you say a story aloud is always rougher than you expect. Better to find that out now than in the interview.</div>
+  </section>
+
+  <!-- STAR STORIES -->
+  <section class="panel" id="star">
+    <h2 class="section-title">STAR story bank</h2>
+    <p class="section-lead">Write five to seven stories. Tag each one with the LPs it covers. The whole point is that the story comes out of your mouth structured and specific, with real numbers, not improvised.</p>
+
+    <h3 class="sub">Tell me about yourself</h3>
+    <p style="font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; max-width: 68ch;">Every Amazon interview opens with this. Aim for 60 to 90 seconds spoken, roughly 130 to 180 words. Hit who you are now, one or two highlights, and why you want this specifically. Avoid reciting your resume top to bottom.</p>
+    <div class="star-form" style="margin-bottom: 28px;">
+      <label>Who you are (one sentence: school, year, focus)</label>
+      <textarea id="tmay-who" placeholder="e.g., I am a junior at Michigan State majoring in Computer Science with a business cognate, focused on full stack and mobile development."></textarea>
+
+      <label>Current focus / what you are building</label>
+      <textarea id="tmay-current" placeholder="What you are working on right now that proves you ship things. Personal project or coursework that matters."></textarea>
+
+      <label>One or two highlights worth name dropping</label>
+      <textarea id="tmay-highlights" placeholder="Projects, internships, papers, awards. Pick the two that best signal the role you want."></textarea>
+
+      <label>Why Amazon, why this role</label>
+      <textarea id="tmay-why" placeholder="Specific to Amazon. Not generic FAANG talk. Mention scale, customer obsession, ownership culture, or a specific product if it is true for you."></textarea>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--ink-muted);">Words: <span id="tmay-count">0</span> &nbsp; Target: 130 to 180</div>
+        <button class="btn btn-primary" id="save-tmay">Save TMAY</button>
+      </div>
+    </div>
+
+    <h3 class="sub">Coverage matrix</h3>
+    <p style="font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; max-width: 68ch;">Which LPs do your saved stories actually cover? Red column headers are gaps. Aim for at least one dot in every column before interview day.</p>
+    <div class="card" style="padding: 14px; margin-bottom: 28px; overflow-x: auto;">
+      <div id="coverage-matrix"></div>
+    </div>
+
+    <h3 class="sub">Build a new story</h3>
+    <div class="star-form">
+      <label>Story title (private nickname for you)</label>
+      <input type="text" id="s-title" placeholder="e.g., Planit App Store launch crunch">
+
+      <label>Situation (the context, briefly)</label>
+      <textarea id="s-situation" placeholder="When and where. Set the scene in two sentences. Use I, not we."></textarea>
+
+      <label>Task (what you specifically had to do)</label>
+      <textarea id="s-task" placeholder="The problem or goal that was yours to solve."></textarea>
+
+      <label>Action (60 percent of your answer)</label>
+      <textarea id="s-action" placeholder="What you did, step by step. Be specific. Name decisions you made and why. This is the meat."></textarea>
+
+      <label>Result (the outcome with numbers)</label>
+      <textarea id="s-result" placeholder="Quantify wherever possible. Users, time saved, percent improvement, downloads, etc."></textarea>
+
+      <label>Reflection (what you learned)</label>
+      <textarea id="s-reflection" placeholder="What you would do differently. Interviewers always probe this."></textarea>
+
+      <label>Which LPs does this story demonstrate?</label>
+      <div class="checkbox-grid" id="lp-tags"></div>
+
+      <div class="star-actions">
+        <button class="btn btn-primary" id="save-story">Save story</button>
+        <button class="btn btn-secondary" id="clear-form">Clear form</button>
+      </div>
+    </div>
+
+    <h3 class="sub">Your saved stories</h3>
+    <div id="stories-list"><p style="color: var(--ink-muted); font-size: 14px; font-style: italic;">No stories yet. Write your first one above.</p></div>
+  </section>
+
+  <!-- GENAI -->
+  <section class="panel" id="genai">
+    <h2 class="section-title">GenAI question prep</h2>
+    <p class="section-lead">Amazon added a GenAI question to many SDE intern loops in 2026. Sometimes a behavioral probe about your usage. Sometimes a small design question. You will not be expected to be an AI researcher, but you should have considered opinions and concrete examples ready.</p>
+
+    <h3 class="sub">Likely questions</h3>
+    <div class="card" style="margin-bottom: 16px;">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 8px;">About your usage</h4>
+      <ul style="margin-left: 20px; color: var(--ink-soft); font-size: 14px;">
+        <li style="margin-bottom: 6px;">How do you use AI tools in your development workflow?</li>
+        <li style="margin-bottom: 6px;">Tell me about a time an AI tool helped you solve a problem you were stuck on.</li>
+        <li style="margin-bottom: 6px;">When do you choose not to use AI tools, and why?</li>
+        <li style="margin-bottom: 6px;">How do you verify the code an AI tool gives you?</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom: 16px;">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 8px;">About AI in software engineering</h4>
+      <ul style="margin-left: 20px; color: var(--ink-soft); font-size: 14px;">
+        <li style="margin-bottom: 6px;">Where do you see AI changing software engineering in the next 3 to 5 years?</li>
+        <li style="margin-bottom: 6px;">What are the limitations of LLMs in code generation?</li>
+        <li style="margin-bottom: 6px;">How do you handle hallucinations when using AI tools?</li>
+        <li style="margin-bottom: 6px;">What kinds of tasks are AI tools still bad at?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 8px;">Design and product flavored probes</h4>
+      <ul style="margin-left: 20px; color: var(--ink-soft); font-size: 14px;">
+        <li style="margin-bottom: 6px;">If you were to build a GenAI feature into a product you use today, what would it be and why?</li>
+        <li style="margin-bottom: 6px;">How would you evaluate whether an LLM powered feature is working well?</li>
+        <li style="margin-bottom: 6px;">What is the difference between prompt engineering and fine tuning in a sentence?</li>
+        <li style="margin-bottom: 6px;">How would you reduce LLM costs in a production feature?</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">Talking points to prepare</h3>
+    <div class="card" style="margin-bottom: 16px;">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 10px;">Have a real workflow story</h4>
+      <p style="font-size: 14px; color: var(--ink-soft);">Pick a concrete moment when you used Claude, Copilot, or ChatGPT to solve a real problem. Be specific: what you asked, what you got, what you verified, what you rewrote. Generic "I use AI for productivity" answers signal nothing.</p>
+    </div>
+    <div class="card" style="margin-bottom: 16px;">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 10px;">Show balanced thinking</h4>
+      <p style="font-size: 14px; color: var(--ink-soft);">Mention both productivity wins (faster scaffolding, better error explanations, learning new libraries) and real limitations (subtle bugs in generated code, plausible looking nonsense, weakness on novel or large codebases, security concerns). Pure cheerleading or pure skepticism both read poorly. Calibrated takes win.</p>
+    </div>
+    <div class="card" style="margin-bottom: 16px;">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 10px;">Know one design pattern</h4>
+      <p style="font-size: 14px; color: var(--ink-soft);">Be ready to sketch a basic RAG (retrieval augmented generation) flow at a high level: user query, embed, vector search against a knowledge base, pass top results into LLM context, return answer. Knowing this one pattern covers most "build an AI feature" probes.</p>
+    </div>
+    <div class="card">
+      <h4 style="font-family: var(--serif); font-size: 17px; font-weight: 600; margin-bottom: 10px;">Frame around customers</h4>
+      <p style="font-size: 14px; color: var(--ink-soft);">Whatever AI answer you give, tie it back to a customer benefit. Amazon is going to score you on Customer Obsession even in technical questions. "LLMs are useful because they help users get answers faster" beats "LLMs are useful because they are cool tech."</p>
+    </div>
+
+    <div class="callout" style="margin-top: 24px;"><strong>What not to say.</strong> Do not claim you can build an LLM from scratch. Do not say you would just paste customer data into a public AI service. Do not pretend you have never used AI tools. Do not overstate. Calibration is the signal.</div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="panel" id="resources">
+    <h2 class="section-title">Curated resources</h2>
+    <p class="section-lead">Free or near free sources that consistently get cited by candidates who landed Amazon offers. Use these to supplement, not replace, the work in this hub.</p>
+
+    <h3 class="sub">GitHub repos worth bookmarking</h3>
+    <div class="resource-card">
+      <h4>krishnadey30 / LeetCode Questions Company Wise</h4>
+      <p>The most up to date company tagged frequency CSV on GitHub. Filter for amazon_1year.csv to see what hit interviews in the last twelve months, sorted by frequency.</p>
+      <a href="https://github.com/krishnadey30/LeetCode-Questions-CompanyWise" target="_blank">github.com/krishnadey30/LeetCode-Questions-CompanyWise</a>
+    </div>
+    <div class="resource-card">
+      <h4>swolecoder / Amazon Online Assessment Questions</h4>
+      <p>Amazon online assessment questions that frequently appear, with descriptions and example solutions. The OA pool overlaps heavily with intern interview questions.</p>
+      <a href="https://github.com/swolecoder/Amazon-Online-Assessment-Questions-LeetCode" target="_blank">github.com/swolecoder/Amazon-Online-Assessment-Questions-LeetCode</a>
+    </div>
+    <div class="resource-card">
+      <h4>optionalg / Leetcode Amazon</h4>
+      <p>Amazon interview questions with solutions in multiple languages. Useful for sanity checking your approach against alternate implementations.</p>
+      <a href="https://github.com/optionalg/Leetcode-Amazon" target="_blank">github.com/optionalg/Leetcode-Amazon</a>
+    </div>
+
+    <h3 class="sub">Behavioral and LP deep dives</h3>
+    <div class="resource-card">
+      <h4>Amazon official SDE prep page</h4>
+      <p>The horse from the horse&apos;s mouth. Amazon publishes interview format details and sample LP probes. Read it once, twice on day 13.</p>
+      <a href="https://amazon.jobs/content/en/how-we-hire/sde-interview-prep" target="_blank">amazon.jobs/content/en/how-we-hire/sde-interview-prep</a>
+    </div>
+    <div class="resource-card">
+      <h4>Exponent: Amazon Leadership Principles Interview Guide</h4>
+      <p>Comprehensive LP guide with sample answers and what interviewers score on. Free to read.</p>
+      <a href="https://www.tryexponent.com/blog/amazon-leadership-principles-interview" target="_blank">tryexponent.com/blog/amazon-leadership-principles-interview</a>
+    </div>
+    <div class="resource-card">
+      <h4>IGotAnOffer: Amazon LP question bank</h4>
+      <p>Hundreds of real LP questions tagged by principle, plus example answers. Skim the question list to make sure your stories cover the full surface.</p>
+      <a href="https://igotanoffer.com/en/advice/amazon-leadership-principles" target="_blank">igotanoffer.com/en/advice/amazon-leadership-principles</a>
+    </div>
+
+    <h3 class="sub">Pattern based practice</h3>
+    <div class="resource-card">
+      <h4>NeetCode 150 (free)</h4>
+      <p>The cleanest free pattern based study plan on the web. Group problems by pattern, watch the video walkthroughs only if stuck. The patterns overlap heavily with Amazon expectations.</p>
+      <a href="https://neetcode.io/practice" target="_blank">neetcode.io/practice</a>
+    </div>
+    <div class="resource-card">
+      <h4>Sean Prashad LeetCode patterns</h4>
+      <p>Community curated list of must do problems organized by pattern. Many overlap with the list in this hub but it is a good cross reference.</p>
+      <a href="https://seanprashad.com/leetcode-patterns/" target="_blank">seanprashad.com/leetcode-patterns</a>
+    </div>
+
+    <h3 class="sub">Mock interviews</h3>
+    <div class="resource-card">
+      <h4>Pramp (free, peer to peer)</h4>
+      <p>Free mock technical interviews with other candidates. Awkward at first, invaluable by your third session. Do at least two before your real interview.</p>
+      <a href="https://www.pramp.com" target="_blank">pramp.com</a>
+    </div>
+    <div class="resource-card">
+      <h4>Interviewing.io (free for students sometimes)</h4>
+      <p>Mock interviews with engineers from FAANG. Check student programs. Real feedback worth more than ten LeetCode problems.</p>
+      <a href="https://interviewing.io" target="_blank">interviewing.io</a>
+    </div>
+  </section>
+
+  <!-- DAY OF -->
+  <section class="panel" id="dayof">
+    <h2 class="section-title">Day of cheat sheet</h2>
+    <p class="section-lead">Print this. Read it the morning of. It collects everything you should remember after two weeks of prep into one page.</p>
+
+    <div class="checklist-block">
+      <h3>The night before</h3>
+      <ul>
+        <li>Test your camera, mic, and the coding environment Amazon sent you a link to. Many candidates have lost rounds to broken setups.</li>
+        <li>Print or open your five STAR stories in a doc you can glance at. Do not hide them. Interviewers can see your eyes.</li>
+        <li>Reread the official 16 Leadership Principles. Just the official one liners.</li>
+        <li>Lay out water, a notebook, a pen, and a charged laptop. Pick the room with the best lighting.</li>
+        <li>Sleep. Resist the urge to grind one more problem. You either know it or you don&apos;t at this point.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-block">
+      <h3>Thirty minutes before</h3>
+      <ul>
+        <li>Light snack, water nearby, bathroom done.</li>
+        <li>Join the meeting 5 minutes early. Be muted, camera off, ready to flick on at the time.</li>
+        <li>Take 60 seconds for box breathing. Four in, four hold, four out, four hold.</li>
+        <li>Open a blank scratch doc. You will use it to track the interviewer&apos;s requirements during the problem.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-block">
+      <h3>Behavioral round mantras</h3>
+      <ul>
+        <li>Speak in I, not we. The action section is yours alone.</li>
+        <li>Spend 20 percent on situation, 60 on action, 20 on result. If you are at three minutes and still on situation, abort.</li>
+        <li>Numbers everywhere you can. Real metrics are believable. Vague claims are not.</li>
+        <li>Pause before answering. Two beats of silence is fine. Better than rambling.</li>
+        <li>Welcome follow up questions. Amazon interviewers dig three or four layers deep. Have a second example ready.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-block">
+      <h3>Technical round mantras</h3>
+      <ul>
+        <li>Restate the problem in your own words before touching code. Confirm.</li>
+        <li>Ask about input size, edge cases, expected behavior on bad input.</li>
+        <li>State a brute force first. Even if it is bad. Then optimize from there.</li>
+        <li>Name the pattern out loud when you spot it. Two pointer, sliding window, BFS, DP, monotonic stack.</li>
+        <li>Talk while you code. Silent typing is the worst signal you can give.</li>
+        <li>Run two test cases manually at the end. Walk through the code as a human compiler.</li>
+        <li>If stuck, narrate your stuckness. Interviewers can hint when they hear specific confusion. They cannot when you are just frozen.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-block warn">
+      <h3>Hard nos</h3>
+      <ul>
+        <li>Do not use AI assistants during the interview. Detection ends the loop. Amazon has explicitly warned against this in 2026.</li>
+        <li>Do not paraphrase the LPs in your own words mid answer to show off. Just answer the question.</li>
+        <li>Do not invent stories. They follow up four layers deep. They will catch you.</li>
+        <li>Do not skip clarifying questions to look fast. Looking fast and being wrong is the worst combination.</li>
+        <li>Do not finish a coding problem and go silent. Always test, always discuss complexity, always offer a tradeoff.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-block">
+      <h3>Smart questions to ask at the end</h3>
+      <ul>
+        <li>What does a strong intern look like on your team three months in?</li>
+        <li>What is the team currently working on, and what would I likely touch as an intern?</li>
+        <li>How does the team measure success for an intern project?</li>
+        <li>What is one thing about working at Amazon that surprised you?</li>
+        <li>How does the Leadership Principle of (pick one specifically) show up in day to day work on your team?</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    Amazon SDE intern prep hub. Progress stored locally in your browser only.
+    <button id="reset-all">Reset all data</button>
+  </footer>
+
+</div>
+
+<script>
+//-------------------- DATA --------------------//
+const SCHEDULE = [
+  { day: 1, focus: 'Foundations: arrays, strings, hashing', desc: 'Warm up. Re establish the basics. Two pointer and hash set patterns.',
+    tasks: ['Solve 4 problems: Two Sum, Valid Anagram, Group Anagrams, Contains Duplicate', 'Read all 16 Leadership Principles once. Just read, do not memorize.', 'Brainstorm a list of 6 to 8 candidate projects to pull stories from.'] },
+  { day: 2, focus: 'Two pointer and sliding window', desc: 'These two patterns alone cover roughly 15 percent of Amazon problems.',
+    tasks: ['Solve: Best Time to Buy and Sell Stock, 3Sum, Container With Most Water, Longest Substring Without Repeating', 'Pick your top 3 candidate stories. Sketch the situation in one sentence each.', 'Find the official Amazon LP page and bookmark it.'] },
+  { day: 3, focus: 'Stacks, queues, linked lists', desc: 'Build intuition for monotonic stacks and pointer manipulation.',
+    tasks: ['Solve: Valid Parentheses, Daily Temperatures, Reverse Linked List, Merge Two Sorted Lists', 'Write the first full STAR story. Aim for 2 minutes spoken. Time yourself.', 'Recheck: did you clarify inputs before coding each problem today?'] },
+  { day: 4, focus: 'Trees and BST', desc: 'DFS and BFS on trees. Recursion fluency.',
+    tasks: ['Solve: Invert Binary Tree, Maximum Depth, Validate BST, Level Order Traversal, Lowest Common Ancestor', 'Write story 2. Tag it to the LPs it covers.', 'Read the Customer Obsession and Ownership LPs in detail.'] },
+  { day: 5, focus: 'Graphs and BFS / DFS', desc: 'This is Amazon&apos;s favorite category. Number of Islands shows up constantly.',
+    tasks: ['Solve: Number of Islands, Clone Graph, Rotting Oranges, Course Schedule, Pacific Atlantic Water Flow', 'Write story 3.', 'Mock a behavioral question out loud. Record yourself if possible.'] },
+  { day: 6, focus: 'Heaps, intervals, greedy', desc: 'Heaps come up in K largest problems. Intervals in scheduling problems.',
+    tasks: ['Solve: Kth Largest Element, Top K Frequent, Merge Intervals, K Closest Points, Meeting Rooms II', 'Write story 4.', 'Read Bias for Action and Dive Deep LPs in detail.'] },
+  { day: 7, focus: 'Backtracking and recursion', desc: 'Subsets, combinations, permutations, word search.',
+    tasks: ['Solve: Subsets, Permutations, Combination Sum, Word Search, Letter Combinations Phone Number', 'Write story 5. Aim for one demonstrating failure or a mistake you owned.', 'Practice the five smart end of interview questions out loud.'] },
+  { day: 8, focus: 'Dynamic programming', desc: 'Skip if time is tight, but understand the recurrence pattern.',
+    tasks: ['Solve: Climbing Stairs, House Robber, Coin Change, Longest Increasing Subsequence, Word Break', 'Polish all 5 stories. Have a friend or AI tool probe with three follow up questions per story.', 'Read the remaining 12 LPs.'] },
+  { day: 9, focus: 'Amazon staples deep dive', desc: 'The problems that show up in interview reports year after year.',
+    tasks: ['Solve: LRU Cache, Reorder Data in Log Files, Most Common Word, Trapping Rain Water, Partition Labels', 'For each of your 5 stories, write down 3 likely follow up questions and answers.', 'Verify every LP has at least one story tagged to it. Add a 6th story if not.'] },
+  { day: 10, focus: 'Tries, design problems, mock round 1', desc: 'Implement a basic data structure from scratch. First full mock interview.',
+    tasks: ['Solve: Implement Trie, Design Add and Search Words, Find Median from Data Stream', 'Do a full 45 minute mock on Pramp or with a peer. One behavioral, one Medium coding.', 'Note 3 things to fix from the mock.'] },
+  { day: 11, focus: 'Story polish and rapid LP drills', desc: 'Stop adding new technical material. Tighten what you have.',
+    tasks: ['Have someone fire 10 random LP questions at you. Answer each in under 2 minutes.', 'Refine the 3 stories that felt weakest in the mock. Add numbers.', 'Solve 2 Mediums to keep your hands warm. No new patterns.'] },
+  { day: 12, focus: 'Mock round 2 plus weak spot fix', desc: 'Second mock. Plug whatever gaps surfaced.',
+    tasks: ['Second full mock interview. Different person if possible.', 'Solve 2 problems from a pattern you still feel shaky on.', 'Reread your weakest 2 LP probes and tighten the answer.'] },
+  { day: 13, focus: 'Final review', desc: 'Light touch. No new material.',
+    tasks: ['Reread all 5 stories out loud once.', 'Skim the LP one liners from amazon.jobs.', 'Solve one Medium for confidence. Pick one you have already done.', 'Test your camera, mic, and interview tool link.', 'Read the Day Of checklist.'] },
+  { day: 14, focus: 'Rest, interview, breathe', desc: 'Day of. Trust the work you put in.',
+    tasks: ['Light breakfast. Hydrate.', '60 minutes before: read your STAR stories one final time.', '30 minutes before: box breathing. Stretch.', '5 minutes before: join the call. Camera on, smile.', 'Go.'] },
+];
+
+const LPS = [
+  { id: 1, name: 'Customer Obsession', priority: 'top',
+    quote: 'Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.',
+    questions: [
+      'Tell me about a time you went above and beyond for a customer or user.',
+      'Describe a situation where you used customer feedback to drive a change.',
+      'Tell me about a time when you had to make a decision that prioritized customer needs over team convenience.',
+    ],
+    listen: ['Did you start with the customer, or did the customer come up as an afterthought?', 'Did you actually talk to users, or guess what they wanted?', 'Did you make a tradeoff that hurt short term metrics but helped users?'] },
+  { id: 2, name: 'Ownership', priority: 'top',
+    quote: 'Leaders are owners. They think long term and don\u2019t sacrifice long term value for short term results. They act on behalf of the entire company, beyond just their own team. They never say that\u2019s not my job.',
+    questions: [
+      'Tell me about a time you took on something outside your assigned responsibilities.',
+      'Describe a project you owned from start to finish.',
+      'Tell me about a time you fixed something that was not your problem to fix.',
+    ],
+    listen: ['Did you take responsibility when something went wrong, or deflect?', 'Did you think long term, even when the short term path was easier?', 'Did you act like a founder of the work, not a contractor?'] },
+  { id: 3, name: 'Invent and Simplify', priority: 'high',
+    quote: 'Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by not invented here.',
+    questions: [
+      'Tell me about a time you simplified a complex process or system.',
+      'Describe an innovation you introduced to a project.',
+      'Tell me about a time you challenged the way something had always been done.',
+    ],
+    listen: ['Did you actually invent, or just iterate?', 'Did the simpler approach actually work, with proof?', 'Were you open to outside ideas, or anchored to your own?'] },
+  { id: 4, name: 'Are Right, A Lot', priority: 'medium',
+    quote: 'Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.',
+    questions: [
+      'Tell me about a time your judgment turned out to be correct when others disagreed.',
+      'Describe a time you changed your mind based on new information.',
+      'Tell me about a time you were wrong. What happened and how did you handle it?',
+    ],
+    listen: ['Did you seek out disconfirming evidence, or just defend your view?', 'Did you change your mind quickly when shown to be wrong?', 'Did you use data and reasoning, not just intuition?'] },
+  { id: 5, name: 'Learn and Be Curious', priority: 'high',
+    quote: 'Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.',
+    questions: [
+      'Tell me about something you taught yourself recently.',
+      'Describe a time you sought out feedback to improve.',
+      'Tell me about a new skill you picked up for a project.',
+    ],
+    listen: ['Was the learning self driven or assigned?', 'Did you apply what you learned to real work?', 'Are you specific about the gap you saw in yourself?'] },
+  { id: 6, name: 'Hire and Develop the Best', priority: 'low',
+    quote: 'Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent and willingly move them throughout the organization.',
+    questions: [
+      'Tell me about a time you mentored someone.',
+      'Describe how you helped a teammate grow.',
+      'Tell me about feedback you gave that improved someone\u2019s performance.',
+    ],
+    listen: ['As an intern this LP is less central. Focus on peer mentoring or tutoring examples.', 'Did you actually help the person grow, with evidence?'] },
+  { id: 7, name: 'Insist on the Highest Standards', priority: 'medium',
+    quote: 'Leaders have relentlessly high standards. Many people may think these standards are unreasonably high. Leaders continually raise the bar and drive their teams to deliver high quality products, services, and processes.',
+    questions: [
+      'Tell me about a time you refused to ship something that was not ready.',
+      'Describe a quality bar you held that others wanted to lower.',
+      'Tell me about a time you raised the standard on your team.',
+    ],
+    listen: ['Did you actually hold a bar that cost you time or social capital?', 'Was the bar reasonable, or arbitrary?', 'Did the quality you insisted on pay off?'] },
+  { id: 8, name: 'Think Big', priority: 'low',
+    quote: 'Thinking small is a self fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.',
+    questions: [
+      'Tell me about an ambitious goal you set.',
+      'Describe a time you pushed for a bigger solution than what was asked for.',
+      'Tell me about your most ambitious project and what you learned.',
+    ],
+    listen: ['Was the goal genuinely ambitious, or just normal?', 'Did you communicate the bigger picture to others?', 'For interns, school projects and personal apps count if the ambition was real.'] },
+  { id: 9, name: 'Bias for Action', priority: 'top',
+    quote: 'Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking.',
+    questions: [
+      'Tell me about a time you made a decision quickly without all the information.',
+      'Describe a situation where you took a calculated risk.',
+      'Tell me about a time waiting was not an option.',
+    ],
+    listen: ['Did you actually move, or just talk about wanting to?', 'Did you decide reversible vs irreversible correctly?', 'Did the speed pay off, or did you regret it?'] },
+  { id: 10, name: 'Frugality', priority: 'low',
+    quote: 'Accomplish more with less. Constraints breed resourcefulness, self sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.',
+    questions: [
+      'Tell me about a time you delivered with very limited resources.',
+      'Describe a time you found a cheaper way to solve a problem.',
+      'Tell me about a tradeoff you made to save resources.',
+    ],
+    listen: ['Was the constraint real, or just stated?', 'Was the cheaper solution actually as good, or did you compromise outcome?'] },
+  { id: 11, name: 'Earn Trust', priority: 'high',
+    quote: 'Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self critical, even when doing so is awkward or embarrassing. They benchmark themselves and their teams against the best.',
+    questions: [
+      'Tell me about a time you admitted a mistake.',
+      'Describe a time you delivered hard feedback to someone.',
+      'Tell me about how you built trust with a new team or peer.',
+    ],
+    listen: ['Are you vulnerable in your story, or polished and defensive?', 'Did the trust translate into actual results?', 'Did you take responsibility specifically and clearly?'] },
+  { id: 12, name: 'Dive Deep', priority: 'top',
+    quote: 'Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.',
+    questions: [
+      'Tell me about a time you went deep into the details to solve a problem.',
+      'Describe a situation where surface level data was misleading.',
+      'Tell me about a complex bug or issue you debugged from first principles.',
+    ],
+    listen: ['Do you actually understand the system at a low level, or just the summary?', 'Did you audit and verify, or trust appearances?', 'Can you go three layers deeper in follow up?'] },
+  { id: 13, name: 'Have Backbone; Disagree and Commit', priority: 'medium',
+    quote: 'Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.',
+    questions: [
+      'Tell me about a time you disagreed with a manager or teammate.',
+      'Describe a decision you committed to despite initially disagreeing.',
+      'Tell me about a time you held your ground on a difficult call.',
+    ],
+    listen: ['Did you challenge respectfully, or just argue?', 'Did you commit fully once the call was made, or quietly resist?', 'Was your conviction based on data or just ego?'] },
+  { id: 14, name: 'Deliver Results', priority: 'top',
+    quote: 'Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.',
+    questions: [
+      'Tell me about your most significant accomplishment.',
+      'Describe a time you delivered under a tight deadline.',
+      'Tell me about a project where you had to overcome a major setback.',
+    ],
+    listen: ['Did the outcome actually happen, with quantifiable proof?', 'Did you compromise quality to meet the deadline, or hit both?', 'Were the setbacks real, or invented for narrative drama?'] },
+  { id: 15, name: 'Strive to be Earth\u2019s Best Employer', priority: 'low',
+    quote: 'Leaders work every day to create a safer, more productive, higher performing, more diverse, and more just work environment. They lead with empathy, have fun at work, and make it easy for others to have fun.',
+    questions: [
+      'Tell me about a time you helped make your team or environment better for everyone.',
+      'Describe how you supported someone who was struggling.',
+      'Tell me about creating an inclusive moment on a team.',
+    ],
+    listen: ['Newer LP. Authentic small actions beat grand declarations.', 'Did you actually improve the environment, or just claim to want to?'] },
+  { id: 16, name: 'Success and Scale Bring Broad Responsibility', priority: 'low',
+    quote: 'We started in a garage, but we are not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions.',
+    questions: [
+      'Tell me about a time you considered the broader impact of a decision beyond your immediate scope.',
+      'Describe a situation where you thought about second order effects.',
+      'Tell me about a time you made a decision considering ethics, not just efficiency.',
+    ],
+    listen: ['Newest LP. Show awareness of impact at scale.', 'Did you actually think bigger than yourself, with specifics?'] },
+];
+
+const LEETCODE = [
+  // Arrays and Hashing
+  { pattern: 'Arrays and Hashing', items: [
+    { id: 1, title: 'Two Sum', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/two-sum/' },
+    { id: 49, title: 'Group Anagrams', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/group-anagrams/' },
+    { id: 347, title: 'Top K Frequent Elements', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/top-k-frequent-elements/' },
+    { id: 238, title: 'Product of Array Except Self', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/product-of-array-except-self/' },
+    { id: 128, title: 'Longest Consecutive Sequence', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/longest-consecutive-sequence/' },
+    { id: 217, title: 'Contains Duplicate', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/contains-duplicate/' },
+    { id: 242, title: 'Valid Anagram', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/valid-anagram/' },
+    { id: 271, title: 'Encode and Decode Strings', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/encode-and-decode-strings/' },
+  ]},
+  // Two Pointers
+  { pattern: 'Two Pointers', items: [
+    { id: 15, title: '3Sum', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/3sum/' },
+    { id: 11, title: 'Container With Most Water', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/container-with-most-water/' },
+    { id: 125, title: 'Valid Palindrome', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/valid-palindrome/' },
+    { id: 167, title: 'Two Sum II', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/' },
+    { id: 42, title: 'Trapping Rain Water', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/trapping-rain-water/' },
+  ]},
+  // Sliding Window
+  { pattern: 'Sliding Window', items: [
+    { id: 3, title: 'Longest Substring Without Repeating Characters', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/longest-substring-without-repeating-characters/' },
+    { id: 121, title: 'Best Time to Buy and Sell Stock', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/' },
+    { id: 424, title: 'Longest Repeating Character Replacement', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/longest-repeating-character-replacement/' },
+    { id: 76, title: 'Minimum Window Substring', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/minimum-window-substring/' },
+    { id: 567, title: 'Permutation in String', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/permutation-in-string/' },
+  ]},
+  // Stack
+  { pattern: 'Stack and Monotonic Stack', items: [
+    { id: 20, title: 'Valid Parentheses', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/valid-parentheses/' },
+    { id: 739, title: 'Daily Temperatures', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/daily-temperatures/' },
+    { id: 155, title: 'Min Stack', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/min-stack/' },
+    { id: 22, title: 'Generate Parentheses', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/generate-parentheses/' },
+    { id: 150, title: 'Evaluate Reverse Polish Notation', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/evaluate-reverse-polish-notation/' },
+  ]},
+  // Linked List
+  { pattern: 'Linked List', items: [
+    { id: 206, title: 'Reverse Linked List', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/reverse-linked-list/' },
+    { id: 21, title: 'Merge Two Sorted Lists', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/merge-two-sorted-lists/' },
+    { id: 141, title: 'Linked List Cycle', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/linked-list-cycle/' },
+    { id: 138, title: 'Copy List with Random Pointer', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/copy-list-with-random-pointer/' },
+    { id: 23, title: 'Merge k Sorted Lists', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/merge-k-sorted-lists/' },
+    { id: 19, title: 'Remove Nth Node From End', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/remove-nth-node-from-end-of-list/' },
+    { id: 146, title: 'LRU Cache', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/lru-cache/' },
+  ]},
+  // Trees
+  { pattern: 'Trees and BST', items: [
+    { id: 226, title: 'Invert Binary Tree', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/invert-binary-tree/' },
+    { id: 104, title: 'Maximum Depth of Binary Tree', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/maximum-depth-of-binary-tree/' },
+    { id: 100, title: 'Same Tree', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/same-tree/' },
+    { id: 102, title: 'Binary Tree Level Order Traversal', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/binary-tree-level-order-traversal/' },
+    { id: 98, title: 'Validate Binary Search Tree', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/validate-binary-search-tree/' },
+    { id: 236, title: 'Lowest Common Ancestor of Binary Tree', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/' },
+    { id: 235, title: 'LCA of Binary Search Tree', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/' },
+    { id: 124, title: 'Binary Tree Maximum Path Sum', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/binary-tree-maximum-path-sum/' },
+    { id: 199, title: 'Binary Tree Right Side View', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/binary-tree-right-side-view/' },
+    { id: 297, title: 'Serialize and Deserialize Binary Tree', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/' },
+  ]},
+  // Tries
+  { pattern: 'Tries', items: [
+    { id: 208, title: 'Implement Trie', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/implement-trie-prefix-tree/' },
+    { id: 211, title: 'Design Add and Search Words', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/design-add-and-search-words-data-structure/' },
+    { id: 212, title: 'Word Search II', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/word-search-ii/' },
+  ]},
+  // Heaps
+  { pattern: 'Heaps and K elements', items: [
+    { id: 215, title: 'Kth Largest Element in Array', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/kth-largest-element-in-an-array/' },
+    { id: 973, title: 'K Closest Points to Origin', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/k-closest-points-to-origin/' },
+    { id: 295, title: 'Find Median from Data Stream', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/find-median-from-data-stream/' },
+    { id: 621, title: 'Task Scheduler', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/task-scheduler/' },
+    { id: 703, title: 'Kth Largest Element in Stream', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/kth-largest-element-in-a-stream/' },
+  ]},
+  // Backtracking
+  { pattern: 'Backtracking', items: [
+    { id: 78, title: 'Subsets', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/subsets/' },
+    { id: 46, title: 'Permutations', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/permutations/' },
+    { id: 39, title: 'Combination Sum', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/combination-sum/' },
+    { id: 79, title: 'Word Search', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/word-search/' },
+    { id: 17, title: 'Letter Combinations of a Phone Number', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/letter-combinations-of-a-phone-number/' },
+    { id: 51, title: 'N Queens', diff: 'hard', amazon: false, url: 'https://leetcode.com/problems/n-queens/' },
+  ]},
+  // Graphs
+  { pattern: 'Graphs: BFS, DFS, Union Find', items: [
+    { id: 200, title: 'Number of Islands', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/number-of-islands/' },
+    { id: 133, title: 'Clone Graph', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/clone-graph/' },
+    { id: 207, title: 'Course Schedule', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/course-schedule/' },
+    { id: 210, title: 'Course Schedule II', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/course-schedule-ii/' },
+    { id: 994, title: 'Rotting Oranges', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/rotting-oranges/' },
+    { id: 417, title: 'Pacific Atlantic Water Flow', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/pacific-atlantic-water-flow/' },
+    { id: 695, title: 'Max Area of Island', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/max-area-of-island/' },
+    { id: 1192, title: 'Critical Connections in a Network', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/critical-connections-in-a-network/' },
+    { id: 127, title: 'Word Ladder', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/word-ladder/' },
+    { id: 547, title: 'Number of Provinces', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/number-of-provinces/' },
+  ]},
+  // Dynamic Programming
+  { pattern: 'Dynamic Programming', items: [
+    { id: 70, title: 'Climbing Stairs', diff: 'easy', amazon: false, url: 'https://leetcode.com/problems/climbing-stairs/' },
+    { id: 198, title: 'House Robber', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/house-robber/' },
+    { id: 322, title: 'Coin Change', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/coin-change/' },
+    { id: 300, title: 'Longest Increasing Subsequence', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/longest-increasing-subsequence/' },
+    { id: 139, title: 'Word Break', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/word-break/' },
+    { id: 5, title: 'Longest Palindromic Substring', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/longest-palindromic-substring/' },
+    { id: 91, title: 'Decode Ways', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/decode-ways/' },
+    { id: 152, title: 'Maximum Product Subarray', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/maximum-product-subarray/' },
+  ]},
+  // Intervals
+  { pattern: 'Intervals and Greedy', items: [
+    { id: 56, title: 'Merge Intervals', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/merge-intervals/' },
+    { id: 57, title: 'Insert Interval', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/insert-interval/' },
+    { id: 253, title: 'Meeting Rooms II', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/meeting-rooms-ii/' },
+    { id: 763, title: 'Partition Labels', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/partition-labels/' },
+    { id: 55, title: 'Jump Game', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/jump-game/' },
+    { id: 134, title: 'Gas Station', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/gas-station/' },
+  ]},
+  // Binary Search
+  { pattern: 'Binary Search', items: [
+    { id: 33, title: 'Search in Rotated Sorted Array', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/search-in-rotated-sorted-array/' },
+    { id: 153, title: 'Find Minimum in Rotated Sorted Array', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/' },
+    { id: 4, title: 'Median of Two Sorted Arrays', diff: 'hard', amazon: true, url: 'https://leetcode.com/problems/median-of-two-sorted-arrays/' },
+    { id: 875, title: 'Koko Eating Bananas', diff: 'medium', amazon: false, url: 'https://leetcode.com/problems/koko-eating-bananas/' },
+  ]},
+  // Amazon classics
+  { pattern: 'Amazon classics you should know cold', items: [
+    { id: 937, title: 'Reorder Data in Log Files', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/reorder-data-in-log-files/' },
+    { id: 819, title: 'Most Common Word', diff: 'easy', amazon: true, url: 'https://leetcode.com/problems/most-common-word/' },
+    { id: 1041, title: 'Robot Bounded In Circle', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/robot-bounded-in-circle/' },
+    { id: 1268, title: 'Search Suggestions System', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/search-suggestions-system/' },
+    { id: 1730, title: 'Shortest Path to Get Food', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/shortest-path-to-get-food/' },
+    { id: 348, title: 'Design Tic Tac Toe', diff: 'medium', amazon: true, url: 'https://leetcode.com/problems/design-tic-tac-toe/' },
+  ]},
+];
+
+//-------------------- STATE --------------------//
+const STORAGE_KEY = 'amazon-prep-hub-v1';
+let state = {
+  days: {},
+  lc: {},
+  stories: [],
+  interviewDate: null,
+  tmay: { who: '', current: '', highlights: '', why: '' },
+  drillCount: 0,
+};
+let drillToday = 0;
+let drillCurrent = null;
+let drillTimer = null;
+let drillRemaining = 120;
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state = Object.assign(state, JSON.parse(raw));
+  } catch(e) {}
+}
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+//-------------------- TABS --------------------//
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('section.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById(btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+//-------------------- COUNTDOWN --------------------//
+function updateCountdown() {
+  const input = document.getElementById('interview-date');
+  const el = document.getElementById('countdown');
+  if (state.interviewDate) {
+    input.value = state.interviewDate;
+    const target = new Date(state.interviewDate);
+    target.setHours(23,59,59,0);
+    const now = new Date();
+    const diff = Math.ceil((target - now) / (1000*60*60*24));
+    if (diff < 0) el.textContent = 'Passed';
+    else if (diff === 0) el.textContent = 'Today';
+    else if (diff === 1) el.textContent = '1 day';
+    else el.textContent = diff + ' days';
+  } else {
+    el.textContent = 'Set date';
+  }
+}
+document.getElementById('interview-date').addEventListener('change', e => {
+  state.interviewDate = e.target.value;
+  save(); updateCountdown();
+});
+
+//-------------------- SCHEDULE --------------------//
+function renderSchedule() {
+  const root = document.getElementById('schedule-list');
+  root.innerHTML = SCHEDULE.map(d => {
+    const done = state.days[d.day];
+    return `
+      <div class="day-row">
+        <div class="day-num">${String(d.day).padStart(2,'0')}<span class="small">Day</span></div>
+        <div class="day-content">
+          <h4>${d.focus}</h4>
+          <p>${d.desc}</p>
+          <ul>${d.tasks.map(t => `<li>${t}</li>`).join('')}</ul>
+        </div>
+        <button class="day-check ${done ? 'done' : ''}" data-day="${d.day}" aria-label="Mark day done"></button>
+      </div>
+    `;
+  }).join('');
+  root.querySelectorAll('.day-check').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const d = +btn.dataset.day;
+      state.days[d] = !state.days[d];
+      save(); renderSchedule(); renderStats();
+    });
+  });
+}
+
+//-------------------- LEETCODE --------------------//
+let lcFilter = 'all';
+let lcSearch = '';
+function renderLC() {
+  const root = document.getElementById('lc-list');
+  let total = 0;
+  let visibleHtml = '';
+
+  LEETCODE.forEach(group => {
+    const items = group.items.filter(it => {
+      if (lcSearch && !it.title.toLowerCase().includes(lcSearch.toLowerCase()) && !String(it.id).includes(lcSearch)) return false;
+      if (lcFilter === 'easy' && it.diff !== 'easy') return false;
+      if (lcFilter === 'medium' && it.diff !== 'medium') return false;
+      if (lcFilter === 'hard' && it.diff !== 'hard') return false;
+      if (lcFilter === 'amazon' && !it.amazon) return false;
+      if (lcFilter === 'undone' && state.lc[it.id]) return false;
+      return true;
+    });
+    total += group.items.length;
+    if (items.length === 0) return;
+
+    const doneInGroup = group.items.filter(i => state.lc[i.id]).length;
+    visibleHtml += `
+      <div class="pattern-group">
+        <div class="pattern-head">
+          <h3>${group.pattern}</h3>
+          <span class="count">${doneInGroup} / ${group.items.length} done</span>
+        </div>
+        ${items.map(it => `
+          <div class="lc-row ${state.lc[it.id] ? 'done' : ''}" data-id="${it.id}">
+            <button class="lc-check ${state.lc[it.id] ? 'checked' : ''}" aria-label="Mark done"></button>
+            <span class="lc-title"><a href="${it.url}" target="_blank">${it.id}. ${it.title}</a></span>
+            <span class="lc-meta">
+              <span class="pill ${it.diff}">${it.diff}</span>
+              ${it.amazon ? '<span class="pill amazon">staple</span>' : ''}
+            </span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  });
+
+  root.innerHTML = visibleHtml || '<p style="color: var(--ink-muted); font-size: 14px; padding: 20px; text-align: center;">No problems match this filter.</p>';
+  root.querySelectorAll('.lc-check').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.lc-row');
+      const id = +row.dataset.id;
+      state.lc[id] = !state.lc[id];
+      save(); renderLC(); renderStats();
+    });
+  });
+}
+document.getElementById('lc-search').addEventListener('input', e => { lcSearch = e.target.value; renderLC(); });
+document.querySelectorAll('.filter-chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.filter-chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    lcFilter = c.dataset.filter;
+    renderLC();
+  });
+});
+
+//-------------------- LPs --------------------//
+function renderLPs() {
+  const root = document.getElementById('lp-list');
+  root.innerHTML = LPS.map(lp => {
+    const pr = lp.priority === 'top' ? '<span class="lp-priority top">High frequency</span>'
+            : lp.priority === 'high' ? '<span class="lp-priority high">Common</span>' : '';
+    return `
+      <div class="lp-card" data-lp="${lp.id}">
+        <div class="lp-head">
+          <div class="lp-num">${String(lp.id).padStart(2,'0')}</div>
+          <div class="lp-title-wrap">
+            <div class="lp-title">${lp.name}${pr}</div>
+            <div class="lp-tagline">${lp.quote.substring(0, 90)}...</div>
+          </div>
+          <div class="lp-chevron">›</div>
+        </div>
+        <div class="lp-body">
+          <div class="lp-quote">${lp.quote}</div>
+          <h5>Likely questions interviewers ask</h5>
+          <ul>${lp.questions.map(q => `<li>${q}</li>`).join('')}</ul>
+          <h5>What interviewers listen for</h5>
+          <ul>${lp.listen.map(l => `<li>${l}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+  }).join('');
+  root.querySelectorAll('.lp-head').forEach(h => {
+    h.addEventListener('click', () => h.closest('.lp-card').classList.toggle('open'));
+  });
+}
+
+//-------------------- STAR --------------------//
+function renderLPTags() {
+  const root = document.getElementById('lp-tags');
+  root.innerHTML = LPS.map(lp => `
+    <label><input type="checkbox" value="${lp.id}"> ${lp.name}</label>
+  `).join('');
+}
+function saveStory() {
+  const story = {
+    id: Date.now(),
+    title: document.getElementById('s-title').value.trim(),
+    situation: document.getElementById('s-situation').value.trim(),
+    task: document.getElementById('s-task').value.trim(),
+    action: document.getElementById('s-action').value.trim(),
+    result: document.getElementById('s-result').value.trim(),
+    reflection: document.getElementById('s-reflection').value.trim(),
+    lps: Array.from(document.querySelectorAll('#lp-tags input:checked')).map(i => +i.value),
+  };
+  if (!story.title) { alert('Give the story a title first.'); return; }
+  state.stories.push(story);
+  save(); renderStories(); renderStats(); clearForm();
+}
+function clearForm() {
+  ['s-title','s-situation','s-task','s-action','s-result','s-reflection'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('#lp-tags input').forEach(i => i.checked = false);
+}
+function renderStories() {
+  const root = document.getElementById('stories-list');
+  if (state.stories.length === 0) {
+    root.innerHTML = '<p style="color: var(--ink-muted); font-size: 14px; font-style: italic;">No stories yet. Write your first one above.</p>';
+    return;
+  }
+  root.innerHTML = state.stories.map(s => {
+    const tags = s.lps.map(id => {
+      const lp = LPS.find(l => l.id === id);
+      return lp ? `<span class="story-saved-tag">${lp.name}</span>` : '';
+    }).join('');
+
+    // Tightening checks
+    const usesI = /\bI\b/.test(s.action);
+    const hasNumber = /\d/.test(s.result);
+    const hasReflection = s.reflection.length > 20;
+    const actionLonger = s.action.split(/\s+/).length > s.situation.split(/\s+/).length;
+    const hasLPs = s.lps.length > 0;
+    const checks = [
+      { label: 'Uses I in action', pass: usesI },
+      { label: 'Result has a number', pass: hasNumber },
+      { label: 'Has a real reflection', pass: hasReflection },
+      { label: 'Action longer than situation', pass: actionLonger },
+      { label: 'At least one LP tagged', pass: hasLPs },
+    ];
+    const tighten = checks.map(c => `<span class="tighten-item ${c.pass ? 'ok' : 'miss'}">${c.label}</span>`).join('');
+
+    return `
+      <div class="story-saved" data-id="${s.id}">
+        <div class="story-saved-head">
+          <div class="story-saved-title">${s.title}</div>
+          <button class="btn btn-danger del-story" data-id="${s.id}">Delete</button>
+        </div>
+        <div class="story-saved-tags">${tags || '<span class="story-saved-tag" style="background: var(--danger-soft); color: var(--danger);">No LPs tagged</span>'}</div>
+        <div class="story-saved-body">
+          ${s.situation ? `<p><strong>Situation.</strong> ${escape(s.situation)}</p>` : ''}
+          ${s.task ? `<p><strong>Task.</strong> ${escape(s.task)}</p>` : ''}
+          ${s.action ? `<p><strong>Action.</strong> ${escape(s.action)}</p>` : ''}
+          ${s.result ? `<p><strong>Result.</strong> ${escape(s.result)}</p>` : ''}
+          ${s.reflection ? `<p><strong>Reflection.</strong> ${escape(s.reflection)}</p>` : ''}
+        </div>
+        <div class="tighten">${tighten}</div>
+      </div>
+    `;
+  }).join('');
+  root.querySelectorAll('.del-story').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = +btn.dataset.id;
+      if (confirm('Delete this story?')) {
+        state.stories = state.stories.filter(s => s.id !== id);
+        save(); renderStories(); renderStats();
+      }
+    });
+  });
+}
+function escape(s) { return s.replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+document.getElementById('save-story').addEventListener('click', saveStory);
+document.getElementById('clear-form').addEventListener('click', clearForm);
+
+//-------------------- STATS --------------------//
+function renderStats() {
+  const daysDone = Object.values(state.days).filter(Boolean).length;
+  const daysTotal = SCHEDULE.length;
+  document.getElementById('stat-rounds').textContent = `${daysDone} / ${daysTotal}`;
+  document.getElementById('bar-rounds').style.width = (daysDone/daysTotal*100) + '%';
+
+  const lcTotal = LEETCODE.reduce((s,g) => s + g.items.length, 0);
+  const lcDone = Object.values(state.lc).filter(Boolean).length;
+  document.getElementById('stat-lc').textContent = `${lcDone} / ${lcTotal}`;
+  document.getElementById('bar-lc').style.width = (lcDone/lcTotal*100) + '%';
+
+  document.getElementById('stat-stories').textContent = state.stories.length;
+
+  const lpCovered = new Set();
+  state.stories.forEach(s => s.lps.forEach(id => lpCovered.add(id)));
+  document.getElementById('stat-lp-cov').textContent = `${lpCovered.size} / 16`;
+  document.getElementById('bar-lp').style.width = (lpCovered.size/16*100) + '%';
+}
+
+//-------------------- DRILL MODE --------------------//
+function flatDrillQuestions() {
+  const out = [];
+  LPS.forEach(lp => lp.questions.forEach(q => out.push({ lp: lp.name, q })));
+  return out;
+}
+const DRILL_BANK = flatDrillQuestions();
+function pickDrillQuestion() {
+  return DRILL_BANK[Math.floor(Math.random() * DRILL_BANK.length)];
+}
+function startDrill() {
+  document.getElementById('drill-empty').style.display = 'none';
+  document.getElementById('drill-active').style.display = 'block';
+  nextDrillQuestion();
+}
+function nextDrillQuestion() {
+  if (drillCurrent) {
+    drillToday++;
+    state.drillCount++;
+    save();
+    renderDrillStats();
+  }
+  drillCurrent = pickDrillQuestion();
+  document.getElementById('drill-lp-label').textContent = drillCurrent.lp;
+  document.getElementById('drill-question').textContent = drillCurrent.q;
+  drillRemaining = 120;
+  updateDrillTimer();
+  if (drillTimer) clearInterval(drillTimer);
+  drillTimer = setInterval(() => {
+    drillRemaining--;
+    updateDrillTimer();
+    if (drillRemaining <= 0) { clearInterval(drillTimer); }
+  }, 1000);
+}
+function updateDrillTimer() {
+  const m = Math.floor(drillRemaining / 60);
+  const s = drillRemaining % 60;
+  document.getElementById('drill-timer').textContent = `${m}:${String(s).padStart(2,'0')}`;
+  document.getElementById('drill-bar').style.width = (drillRemaining/120*100) + '%';
+  const el = document.getElementById('drill-timer');
+  if (drillRemaining <= 10) el.style.color = 'var(--danger)';
+  else if (drillRemaining <= 30) el.style.color = 'var(--accent)';
+  else el.style.color = 'var(--accent)';
+}
+function renderDrillStats() {
+  document.getElementById('drill-today').textContent = drillToday;
+  document.getElementById('drill-total').textContent = state.drillCount;
+}
+document.getElementById('drill-start').addEventListener('click', startDrill);
+document.getElementById('drill-next').addEventListener('click', nextDrillQuestion);
+document.getElementById('drill-skip').addEventListener('click', () => {
+  drillCurrent = null;
+  nextDrillQuestion();
+});
+
+//-------------------- TMAY --------------------//
+function renderTMAY() {
+  document.getElementById('tmay-who').value = state.tmay.who || '';
+  document.getElementById('tmay-current').value = state.tmay.current || '';
+  document.getElementById('tmay-highlights').value = state.tmay.highlights || '';
+  document.getElementById('tmay-why').value = state.tmay.why || '';
+  updateTMAYCount();
+}
+function updateTMAYCount() {
+  const text = [
+    document.getElementById('tmay-who').value,
+    document.getElementById('tmay-current').value,
+    document.getElementById('tmay-highlights').value,
+    document.getElementById('tmay-why').value,
+  ].join(' ').trim();
+  const count = text ? text.split(/\s+/).length : 0;
+  const el = document.getElementById('tmay-count');
+  el.textContent = count;
+  if (count >= 130 && count <= 180) el.style.color = 'var(--success)';
+  else if (count > 180) el.style.color = 'var(--danger)';
+  else el.style.color = 'var(--ink-muted)';
+}
+document.getElementById('save-tmay').addEventListener('click', () => {
+  state.tmay = {
+    who: document.getElementById('tmay-who').value.trim(),
+    current: document.getElementById('tmay-current').value.trim(),
+    highlights: document.getElementById('tmay-highlights').value.trim(),
+    why: document.getElementById('tmay-why').value.trim(),
+  };
+  save();
+  const btn = document.getElementById('save-tmay');
+  const orig = btn.textContent;
+  btn.textContent = 'Saved';
+  setTimeout(() => { btn.textContent = orig; }, 1200);
+});
+['tmay-who','tmay-current','tmay-highlights','tmay-why'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateTMAYCount);
+});
+
+//-------------------- COVERAGE MATRIX --------------------//
+function renderCoverage() {
+  const root = document.getElementById('coverage-matrix');
+  if (state.stories.length === 0) {
+    root.innerHTML = '<p style="color: var(--ink-muted); font-size: 13px; padding: 10px; font-style: italic;">No stories saved yet. Once you save a few, this matrix will show which LPs each story covers and flag gaps.</p>';
+    return;
+  }
+  const counts = {};
+  LPS.forEach(lp => counts[lp.id] = 0);
+  state.stories.forEach(s => s.lps.forEach(id => { if (counts[id] !== undefined) counts[id]++; }));
+
+  let html = '<table class="cov-table"><thead><tr><th class="story-name">Story</th>';
+  LPS.forEach(lp => {
+    const gap = counts[lp.id] === 0 ? ' class="gap"' : '';
+    html += `<th${gap}><div class="lp-label">${lp.name}</div></th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  state.stories.forEach(s => {
+    html += `<tr><td class="story-name">${escape(s.title || 'Untitled')}</td>`;
+    LPS.forEach(lp => {
+      const has = s.lps.includes(lp.id);
+      html += `<td class="${has ? 'dot' : 'empty'}">${has ? '●' : '·'}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '<tr class="count-row"><td class="story-name">Coverage count</td>';
+  LPS.forEach(lp => {
+    const c = counts[lp.id];
+    html += `<td class="${c === 0 ? 'zero' : ''}">${c}</td>`;
+  });
+  html += '</tr></tbody></table>';
+  root.innerHTML = html;
+}
+
+// Patch saveStory and del to also re-render coverage
+const _origSaveStory = saveStory;
+saveStory = function() { _origSaveStory(); renderCoverage(); };
+document.getElementById('save-story').removeEventListener('click', _origSaveStory);
+document.getElementById('save-story').addEventListener('click', saveStory);
+
+const _origRenderStories = renderStories;
+renderStories = function() { _origRenderStories(); renderCoverage(); };
+
+//-------------------- RESET --------------------//
+document.getElementById('reset-all').addEventListener('click', () => {
+  if (confirm('Wipe all progress, stories, and saved data? This cannot be undone.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+});
+
+//-------------------- BOOT --------------------//
+load();
+renderSchedule();
+renderLC();
+renderLPs();
+renderLPTags();
+renderStories();
+renderStats();
+renderTMAY();
+renderCoverage();
+renderDrillStats();
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>
